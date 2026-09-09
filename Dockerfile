@@ -10,8 +10,6 @@ COPY . .
 
 RUN npm install
 
-RUN sequelize-cli db:migrate
-
 EXPOSE 5000
 
-CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
+CMD ["sh", "-c", "sequelize-cli db:migrate && pm2-runtime start ecosystem.config.js"]
