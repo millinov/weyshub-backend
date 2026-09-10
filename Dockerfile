@@ -12,8 +12,4 @@ RUN npm install
 
 EXPOSE 5000
 
-COPY start.sh .
-
-RUN chmod +x start.sh
-
-CMD ["./start.sh"]
+CMD ["sh", "-c", "sequelize-cli db:migrate && pm2-runtime start ecosystem.config.js"]
