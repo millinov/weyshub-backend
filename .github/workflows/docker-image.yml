@@ -23,7 +23,7 @@ jobs:
     - name: Test the docker image
       run: | 
         docker run -d --rm --name test-backend -p 5000:5000 millinovz/wayshub-${{ vars.TAG }}:v1
-        sleep 5
+        sleep 30
         RESPONSE=$(curl -s \
         -w "\n%{http_code}" \
         -X POST http://localhost:5000/api/v1/login \
