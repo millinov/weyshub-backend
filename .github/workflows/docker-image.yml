@@ -53,7 +53,13 @@ jobs:
             -d '{"email":"test@test.com","password":"test"}')
             echo "Status: "
             echo $STATUS
-
+            docker stop test-backend
+            if [ "$STATUS" != "200" ]; then
+              echo "Build has failed the test"
+              exit 1
+            fi
+            echo "Build has run successfully!"
+            
   deploy:
     runs-on: ubuntu-latest
     environment: wayshub
