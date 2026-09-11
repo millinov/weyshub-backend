@@ -20,6 +20,22 @@ jobs:
     - name: Build the Docker image
       run: docker build -t millinovz/wayshub-${{ vars.TAG }}:v1 .
 
+    - name: Test the docker image
+      run: | 
+      docker build -t millinovz/wayshub-${{ vars.TAG }}:v1 .
+      sleep 5
+      docker run -d --rm --name test-backend -p 5000:5000 millinovz/wayshub-${{ vars.TAG }}:v1
+      RESPONSE=$(curl -s \
+      -w "\n%{http_code}" \
+      -X POST http://localhost:5000/api/v1/login \
+      -H "Content-Type: application/json" \
+      -d '{"email":"test@test.com","password":"test"}')
+      STATUS=$(echo "$RESPONSE" | tail -n 1)
+      docker stop test-backend
+      if [ "$STATUS" != "200" ]; then
+        exit 1
+      fi
+
     - name: Docker Login
       uses: docker/login-action@v4.6.0
       with:
@@ -28,7 +44,7 @@ jobs:
 
     - name: Docker Push
       run: docker push millinovz/wayshub-${{ vars.TAG }}:v1
-          
+
   deploy:
     runs-on: ubuntu-latest
     environment: wayshub
