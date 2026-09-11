@@ -19,11 +19,25 @@ jobs:
     
     - name: Build the Docker image
       run: docker build -t millinovz/wayshub-${{ vars.TAG }}:v1 .
+    
+    - name: Run the Docker image
+      run: docker run -d --rm --name test-backend -p 5000:5000 millinovz/wayshub-${{ vars.TAG }}:v1
+
+    - name: Wait for backend to be ready
+      run: |
+        echo "Waiting for port 5000 to open..."
+        for i in {1..10}; do
+          if curl -s http://localhost:5000 > /dev/null; then
+            echo "Backend is up and running!"
+            exit 0
+          fi
+          echo "Still waiting... ($i/10)"
+          sleep 6
+        done
+        echo "Backend failed to start in time." && exit 1
 
     - name: Test the docker image
       run: | 
-        docker run -d --rm --name test-backend -p 5000:5000 millinovz/wayshub-${{ vars.TAG }}:v1
-        sleep 30
         RESPONSE=$(curl -s \
         -w "\n%{http_code}" \
         -X POST http://localhost:5000/api/v1/login \
