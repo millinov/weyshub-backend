@@ -34,12 +34,12 @@ jobs:
           -d '{"email":"test@test.com","password":"test"}')
 
           STATUS=${STATUS:-000}
+          echo "Loop $i/10 -> Received HTTP Status: $STATUS"
 
-          if [ "$STATUS" != "200" ]; then
+          if [ "$STATUS" == "200" ]; then
             echo "Backend is up and running!"
             exit 0
           fi
-          echo $STATUS
           echo "Still waiting... ($i/10)"
           sleep 6
         done
