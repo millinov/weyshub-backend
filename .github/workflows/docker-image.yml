@@ -96,7 +96,7 @@ jobs:
           avatar-url: https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024
           embed-title: "Millinov has successfully deploy Wayshub Backend"
           embed-url: "https://youtu.be/cvj0RvSQnr4?si=W_ugSOZU7glJdW62"
-          embed-description: "Saya sudah mencoba lagi menggunakan github action untuk melakukan discord hook, jika message ini terlihat berarti sudah berjalan dengan baik"
+          embed-description: "Saya sudah mencoba lagi menggunakan github asd action untuk melakukan discord hook, jika message ini terlihat berarti sudah berjalan dengan baik"
           embed-author-name: "Millinov"
           embed-author-url: "https://github.com/millinov"
           embed-author-icon-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
