@@ -98,10 +98,12 @@ jobs:
   notif:
     runs-on: ubuntu-latest
     environment: wayshub
+    needs: deploy
+    if: always()
 
     steps:
     - name: Discord Webhook send success notification
-      if: ${{ success() }}
+      if: success()
       uses: tsickert/discord-webhook@v7.0.0  
       with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
@@ -117,7 +119,7 @@ jobs:
           embed-image-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
           embed-color: 1565507
     - name: Discord Webhook send failure notification
-      if: ${{ failure() }}
+      if: failure()
       uses: tsickert/discord-webhook@v7.0.0  
       with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
