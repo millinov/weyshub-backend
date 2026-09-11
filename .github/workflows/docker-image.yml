@@ -59,7 +59,7 @@ jobs:
               exit 1
             fi
             echo "Build has run successfully!"
-            
+
   deploy:
     runs-on: ubuntu-latest
     environment: wayshub
@@ -94,4 +94,45 @@ jobs:
           embed-thumbnail-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
           embed-image-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
           embed-color: 15430476
+
+  notif:
+    runs-on: ubuntu-latest
+    environment: wayshub
+
+    steps:
+    - name: Discord Webhook send success notification
+      if: ${{ success() }}
+      uses: tsickert/discord-webhook@v7.0.0  
+      with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          username: millinov-webhook-backend
+          avatar-url: https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024
+          embed-title: "Millinov has successfully deploy Wayshub Backend"
+          embed-url: "https://youtu.be/cvj0RvSQnr4?si=W_ugSOZU7glJdW62"
+          embed-description: "Saya sudah mencoba lagi menggunakan github action untuk melakukan discord hook, jika message ini terlihat berarti sudah berjalan dengan baik"
+          embed-author-name: "Millinov"
+          embed-author-url: "https://github.com/millinov"
+          embed-author-icon-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-thumbnail-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-image-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-color: 1565507
+    - name: Discord Webhook send failure notification
+      if: ${{ failure() }}
+      uses: tsickert/discord-webhook@v7.0.0  
+      with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          username: millinov-webhook-backend
+          avatar-url: https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024
+          embed-title: "Millinov has failed to deploy Wayshub Backend"
+          embed-url: "https://youtu.be/cvj0RvSQnr4?si=W_ugSOZU7glJdW62"
+          embed-description: "Saya sudah mencoba lagi menggunakan github action untuk melakukan discord hook, jika message ini terlihat berarti sudah berjalan dengan baik"
+          embed-author-name: "Millinov"
+          embed-author-url: "https://github.com/millinov"
+          embed-author-icon-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-thumbnail-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-image-url: "https://cdn.discordapp.com/avatars/325643144236367873/ec0a9440f1e3f7e5ff8a39be456d813f.png?size=1024"
+          embed-color: 16515876
+
+
+
 
